@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>sign-in page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary-color: red;
+            --primary-hover: rgb(185, 9, 9);
+            --error-color: #ff3b30;
+            --success-color: #34c759;
+            --text-color: #333;
+            --light-gray: #f5f5f7;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f9f9ff;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background-image: url('v915-wit-008-k.jpg');
+            background-size: cover;
+        }
+        
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(10, 132, 255, 0.05);
+            z-index: -1;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        body::before {
+            width: 300px;
+            height: 300px;
+            top: -50px;
+            left: -50px;
+            animation-delay: 0s;
+        }
+        
+        body::after {
+            width: 200px;
+            height: 200px;
+            bottom: -30px;
+            right: -30px;
+            animation-delay: 3s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(20px, 20px);
+            }
+        }
+        
+        .login-container {
+            background:transparent;
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 380px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1;
+        }
+        
+        .login-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), #6e45e2);
+            animation: rainbow 8s linear infinite;
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        h2 {
+            margin-bottom: 1.8rem;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+        
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            border-radius: 50px;
+        }
+        
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 1rem;
+            padding-left: 40px;
+            border: 2px solid #e0e0e7;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: var(--light-gray);
+        }
+        
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2);
+            outline: none;
+            background-color: white;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #222;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus + .input-icon, 
+        input[type="password"]:focus + .input-icon {
+            color: var(--primary-color);
+        }
+        
+        button {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        button:focus:not(:active)::after {
+            animation: ripple 0.6s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+        
+        .error-message {
+            color: var(--error-color);
+            margin-bottom: 1.5rem;
+            display: none;
+            font-size: 0.9rem;
+            padding: 0.8rem;
+            background-color: rgba(255, 59, 48, 0.1);
+            border-radius: var(--border-radius);
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .login-container {
+                width: 90%;
+                padding: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+
+<div class="login-container animate__animated animate__fadeIn">
+    <h2>PLEASE SIGN IN</h2>
+    <div id="errorMsg" class="error-message">Invalid</div>
+    
+    <div class="input-group">
+        <input type="text" id="username" placeholder="Username" autocomplete="off" required />
+        <span class="input-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+</svg></span>
+    </div>
+
+    <div class="input-group">
+        <input type="text" id="email" placeholder="E-mail" autocomplete="off" required />
+        <span class="input-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  class="bi bi-envelope-fill" viewBox="0 0 16 16">
+  <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
+</svg></span>
+    </div>
+    
+    <div class="input-group">
+        <input type="password" id="password" placeholder="Password" autocomplete="off" required />
+        <span class="input-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4m0 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3"/>
+</svg></span>
+    </div>
+    
+    <button id="loginBtn">Sign-in</button>
+</div>
+
+<script>
+    const loginBtn = document.getElementById('loginBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const loginContainer = document.querySelector('.login-container');
+
+    loginBtn.addEventListener('click', () => {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const email = document.getElementById('email').value.trim();
+
+        
+        if(username === 'x' && password === 'z'&& email==='y') {
+            loginContainer.classList.add('animate__animated', 'animate__pulse');
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 800);
+        } else {
+        
+            errorMsg.style.display = 'block';
+            loginContainer.classList.add('animate__animated', 'animate__shakeX');
+            setTimeout(() => {
+                loginContainer.classList.remove('animate__shakeX');
+            }, 1000);
+        }
+    });
+    loginContainer.addEventListener('animationend', () => {
+        loginContainer.classList.remove('animate__animated', 'animate__pulse', 'animate__shakeX');
+    });
+
+
+    document.addEventListener('keydown', (event) => {
+        if(event.key === 'Enter') {
+            loginBtn.click();
+        }
+    });
+</script>
+
+</body>
+</html>
